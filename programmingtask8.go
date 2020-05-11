@@ -25,7 +25,6 @@ func display(sh shape) {
 
 func main() {
 	var sq shape
-	square1 := &square{side: 20} // & is necessary when ur methods are using pointer receiver parameter
-	sq = square1
-	display(sq)
+	mysquare := &square{side: 20} // & is necessary when ur methods are using pointer receiver parameter
+	display(mysquare)
 }
