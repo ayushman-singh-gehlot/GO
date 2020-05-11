@@ -58,7 +58,7 @@ func main() {
 		}
 		guesses++
 		success = checkGuess(guess, target)
-		if success == true {
+		if success {
 			fmt.Println("You managed to guess it in", guesses, "chances")
 			break
 		}
