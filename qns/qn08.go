@@ -19,6 +19,7 @@ type Robot string
 func (r Robot) MakeSound() {
 	fmt.Println("Beep Boop")
 }
+
 func (r Robot) Walk() {
 	fmt.Println("Powering legs")
 }
@@ -28,6 +29,13 @@ func (r Robot) Walk() {
 // Whistle, Horn, and Robot types will all satisfy.
 // It should require one method, MakeSound, which has
 // no parameters and no return values.
+type NoiseMaker interface {
+	MakeSound()
+}
+
+func Play(device NoiseMaker) {
+	device.MakeSound()
+}
 
 // YOUR CODE HERE:
 // Define a Play function that accepts a parameter with
