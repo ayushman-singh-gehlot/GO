@@ -1,11 +1,11 @@
 package components
 
-func checkRows(b *Board, mark string) bool {
+func checkRows(b *NewBoard, mark string) bool {
 	ret := true
-	for i := 0; i < (b.Size * b.Size); i = i + b.Size {
+	for i := 0; i < (b.size * b.size); i = i + b.size {
 		ret = true
-		for j := i; j < (i + b.Size); j++ {
-			if b.Values[j] != mark {
+		for j := i; j < (i + b.size); j++ {
+			if b.values[j] != mark {
 				ret = false
 			}
 		}
@@ -16,12 +16,12 @@ func checkRows(b *Board, mark string) bool {
 	return ret
 }
 
-func checkColumns(b *Board, mark string) bool {
+func checkColumns(b *NewBoard, mark string) bool {
 	ret := true
-	for i := 0; i < b.Size; i++ {
+	for i := 0; i < b.size; i++ {
 		ret = true
-		for j := i; j < (b.Size * b.Size); j = j + b.Size {
-			if b.Values[j] != mark {
+		for j := i; j < (b.size * b.size); j = j + b.size {
+			if b.values[j] != mark {
 				ret = false
 			}
 		}
@@ -31,10 +31,10 @@ func checkColumns(b *Board, mark string) bool {
 	}
 	return ret
 }
-func checkDiagonal(b *Board, mark string) bool {
+func checkDiagonal(b *NewBoard, mark string) bool {
 	ret := true
-	for i := 0; i < b.Size; i++ {
-		if b.Values[b.Size*i+i] != mark {
+	for i := 0; i < b.size; i++ {
+		if b.values[b.size*i+i] != mark {
 			ret = false
 		}
 	}
@@ -42,23 +42,23 @@ func checkDiagonal(b *Board, mark string) bool {
 		return ret
 	}
 	ret = true
-	for i := 0; i < b.Size; i++ {
-		if b.Values[(b.Size*i)+(b.Size-1-i)] != mark {
+	for i := 0; i < b.size; i++ {
+		if b.values[(b.size*i)+(b.size-1-i)] != mark {
 			ret = false
 		}
 	}
 	return ret
 }
-func checkFull(b *Board) bool {
-	for i := 0; i < b.Size*b.Size; i++ {
-		if b.Values[i] == " " {
+func checkFull(b *NewBoard) bool {
+	for i := 0; i < b.size*b.size; i++ {
+		if b.values[i] == " " {
 			return false
 		}
 	}
 	return true
 }
 
-func (b *Board) Analyse(mark string) (bool, string) {
+func (b *NewBoard) Analyse(mark string) (bool, string) {
 
 	if checkRows(b, mark) {
 		return true, mark

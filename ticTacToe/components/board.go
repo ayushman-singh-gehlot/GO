@@ -1,62 +1,42 @@
 package components
 
 import (
-	"bufio"
 	"errors"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
 )
 
-type Board struct {
-	Size   int
-	Values []string
+type NewBoard struct {
+	size   int
+	values []string
 }
 
-func (b Board) BoardSize() (int, error) {
-	readerObj := bufio.NewReader(os.Stdin)
-	bSize, err := readerObj.ReadString('\n')
-	bSize = strings.TrimSpace(bSize)
-	size, err := strconv.Atoi(bSize)
-
-	if size != 2 && size != 3 && size != 4 {
-		return 0, errors.New("entered wrong size")
+func (b *NewBoard) Update(inp int, mark string) error {
+	if inp >= b.size*b.size || inp < 0 {
+		return errors.New("please enter valid position")
+	} else if b.values[inp] == "X" || b.values[inp] == "O" {
+		return errors.New("place is already marked")
 	}
-	return size, err
+	b.values[inp] = mark
+	return nil
 }
 
-func (b Board) Input() (int, error) {
-	readerObj := bufio.NewReader(os.Stdin)
-	temp, err := readerObj.ReadString('\n')
-	temp = strings.TrimSpace(temp)
-	inp, err := strconv.Atoi(temp)
-	if err != nil {
-		return 0, errors.New("please enter integer value")
-	} else if inp >= b.Size*b.Size || inp < 0 {
-		return 0, errors.New("enter a valid position")
-	} else if b.Values[inp] == "X" || b.Values[inp] == "O" {
-		return 0, errors.New("place is already marked")
+func (b *NewBoard) CreateBoard(size int) {
+	b.size = size
+	for i := 0; i < int(b.size*b.size); i++ {
+		b.values = append(b.values, " ")
 	}
-	return inp, err
-}
-
-func (b *Board) Intialize() {
-	for i := 0; i < int(b.Size*b.Size); i++ {
-		b.Values = append(b.Values, " ")
-	}
-	for i := 0; i < (b.Size * b.Size); i++ {
-		if i%b.Size == 0 {
+	for i := 0; i < (b.size * b.size); i++ {
+		if i%b.size == 0 {
 			fmt.Println()
 		}
-		if i >= b.Size*(b.Size-1) {
-			if i%b.Size == (b.Size - 1) {
+		if i >= b.size*(b.size-1) {
+			if i%b.size == (b.size - 1) {
 				fmt.Printf("  %d  ", i)
 			} else {
 				fmt.Printf("  %d  |", i)
 			}
 		} else {
-			if i%b.Size == (b.Size - 1) {
+			if i%b.size == (b.size - 1) {
 				fmt.Printf("__%d__", i)
 			} else {
 				fmt.Printf("__%d__|", i)
@@ -66,22 +46,22 @@ func (b *Board) Intialize() {
 
 }
 
-func (b *Board) DisplayBoard() {
-	for i := 0; i < (b.Size * b.Size); i++ {
-		if i%b.Size == 0 {
+func (b *NewBoard) DisplayBoard() { // try writing test
+	for i := 0; i < (b.size * b.size); i++ {
+		if i%b.size == 0 {
 			fmt.Println()
 		}
-		if i >= b.Size*(b.Size-1) {
-			if i%b.Size == (b.Size - 1) {
-				fmt.Printf("  %s  ", b.Values[i])
+		if i >= b.size*(b.size-1) {
+			if i%b.size == (b.size - 1) {
+				fmt.Printf("  %s  ", b.values[i])
 			} else {
-				fmt.Printf("  %s  |", b.Values[i])
+				fmt.Printf("  %s  |", b.values[i])
 			}
 		} else {
-			if i%b.Size == (b.Size - 1) {
-				fmt.Printf("__%s__", b.Values[i])
+			if i%b.size == (b.size - 1) {
+				fmt.Printf("__%s__", b.values[i])
 			} else {
-				fmt.Printf("__%s__|", b.Values[i])
+				fmt.Printf("__%s__|", b.values[i])
 			}
 		}
 	}
