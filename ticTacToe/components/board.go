@@ -46,7 +46,7 @@ func (b *NewBoard) CreateBoard(size int) {
 
 }
 
-func (b *NewBoard) DisplayBoard() { // try writing test
+func (b *NewBoard) DisplayBoard() {
 	for i := 0; i < (b.size * b.size); i++ {
 		if i%b.size == 0 {
 			fmt.Println()
